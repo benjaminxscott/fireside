@@ -11,6 +11,5 @@ Install [vagrant](https://www.vagrantup.com/downloads.html)
 ## Start the Machine
 `vagrant up`
 
-
 ## Begin Calculations
-
+`tournament_test.py`
