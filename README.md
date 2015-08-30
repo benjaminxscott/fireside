@@ -2,8 +2,15 @@
 # fireside
 Figure out the winner of your next Hearthstone tourney
 
-TODO install
+## Grab Pre-reqs
+Install [virtualbox](https://www.virtualbox.org/wiki/Downloads)
+Install [vagrant](https://www.vagrantup.com/downloads.html)
 
-TODO running
+> Note: chrooted boxes (i.e. cloud9) don't work very well with vagrant
 
-TODO usage
+## Start the Machine
+`vagrant up`
+
+
+## Begin Calculations
+
