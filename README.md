@@ -1,4 +1,9 @@
-rdb-fullstack
-=============
 
-Common code for the Relational Databases and Full Stack Fundamentals courses
+# fireside
+Figure out the winner of your next Hearthstone tourney
+
+TODO install
+
+TODO running
+
+TODO usage
