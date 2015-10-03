@@ -13,3 +13,6 @@ Install [vagrant](https://www.vagrantup.com/downloads.html)
 
 ## Begin Calculations
 `tournament_test.py`
+
+TODO integrate into bootstrap script and test on win
+```

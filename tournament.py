@@ -71,10 +71,10 @@ def playerStandings():
     """
     
     dbcursor = connect()
-    dbcursor.execute("SELECT * from players;")
     
-    # TODO rankings = 
+    dbcursor.execute("SELECT * from players;")
 
+    return dbcursor.fetchall()
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -125,3 +125,22 @@ def swissPairings():
     """
 
 
+    rankings = {}
+    pairs = []
+    
+    dbcursor = connect()
+    dbcursor.execute("SELECT player_id, name, wins from players;")
+
+    results = dbcursor.fetchall()
+    
+    for (player_id, name, wins) in results:
+        # create a list for each win total, with a list of players with that number of wins
+        # i.e. {0: (id,name).. , 1: (id,name).. }
+        rankings.setdefault(wins, []).append(player_id)
+        rankings.setdefault(wins, []).append(name)
+        
+    for item in rankings.values():
+        pairs.append(tuple(item))
+        
+        
+    return pairs
