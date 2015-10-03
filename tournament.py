@@ -7,20 +7,37 @@ import psycopg2
 
 
 def connect():
-    """Connect to the PostgreSQL database.  Returns a database connection."""
-    return psycopg2.connect("dbname=tournament")
+    """Connect to the PostgreSQL database.  Returns a database cursor."""
+
+    dbname = "fireside"
+    dbconnection = psycopg2.connect("dbname=fireside")    
+    dbconnection.autocommit = True
+    
+    return dbconnection.cursor()
+    # PERF need to teardown the connection / cursors as well to avoid exhaustion     
 
 
 def deleteMatches():
     """Remove all the match records from the database."""
-
+    dbcursor = connect()
+    dbcursor.execute("TRUNCATE matches")
+    
+    return 1 # success
 
 def deletePlayers():
     """Remove all the player records from the database."""
+    dbcursor = connect()
+    dbcursor.execute("TRUNCATE players")
+    
+    return 1 # success
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
+    
+    dbcursor = connect()
+    dbcursor.execute("SELECT * from players")
+    return dbcursor.rowcount
 
 
 def registerPlayer(name):
@@ -33,6 +50,11 @@ def registerPlayer(name):
       name: the player's full name (need not be unique).
     """
 
+    dbcursor = connect()
+    dbcursor.execute("INSERT INTO players (name, wins, matches_played) VALUES (%s, %s, %s)",
+        (name, 0, 0 ))
+
+    return 1 # success
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -47,6 +69,11 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    
+    dbcursor = connect()
+    dbcursor.execute("SELECT * from players;")
+    
+    # TODO rankings = 
 
 
 def reportMatch(winner, loser):
@@ -56,6 +83,29 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+ 
+    dbcursor = connect()
+ 
+    # insert match 
+    dbcursor.execute("INSERT INTO matches (winner_id, loser_id) VALUES (%s, %s)",
+        (winner, loser))
+    
+    # PERF wins and total matches are tracked in player DB, trading off disk and a slightly more complex insert for a constant time lookup
+    
+    # increment win in player table
+    dbcursor.execute("update players set wins = wins + 1 where player_id = (%s)",
+        (winner,))
+    
+    # increment matches for both players
+    dbcursor.execute("update players set matches_played = matches_played + 1 where player_id = %s",
+        (winner,))
+    dbcursor.execute("update players set matches_played = matches_played + 1 where player_id = %s",
+        (loser,))
+        
+    # PERF could merge these updates to save a db query
+    
+ 
+    return 1 #success
  
  
 def swissPairings():

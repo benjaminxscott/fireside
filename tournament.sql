@@ -8,13 +8,14 @@
 
 
 create table players (
-    player_id int primary key,
+    player_id serial primary key,
     name text NOT NULL,
-    wins int
+    wins int CHECK (wins >= 0),
+    matches_played int CHECK (matches_played >= 0)
 );
 
 create table matches (
-    match_id int primary key,
-    player1_id int NOT NULL,
-    player2_id int NOT NULL
+    match_id serial primary key,
+    winner_id int NOT NULL,
+    loser_id int NOT NULL
 );
