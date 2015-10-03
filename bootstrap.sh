@@ -9,4 +9,4 @@ pip install httplib2
 su postgres -c 'createuser -dRS vagrant'
 su vagrant -c 'createdb'
 su vagrant -c 'createdb fireside'
-su vagrant -c 'psql fireside -f /vagrant/tournament.sql'
+su vagrant -c 'psql -d fireside -f /vagrant/tournament.sql'
