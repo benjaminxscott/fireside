@@ -30,7 +30,7 @@ def testCount():
 def testRegister():
     deleteMatches()
     deletePlayers()
-    registerPlayer("Chandra Nalaar")
+    registerPlayer("Jeff Goldblum")
     c = countPlayers()
     if c != 1:
         raise ValueError(
@@ -41,9 +41,9 @@ def testRegister():
 def testRegisterCountDelete():
     deleteMatches()
     deletePlayers()
-    registerPlayer("Markov Chaney")
-    registerPlayer("Joe Malik")
-    registerPlayer("Mao Tsu-hsi")
+    registerPlayer("Jeff Goldblum")
+    registerPlayer("Dweezil Zappa")
+    registerPlayer("Josh Brolin")
     registerPlayer("Atlanta Hope")
     c = countPlayers()
     if c != 4:
@@ -59,8 +59,8 @@ def testRegisterCountDelete():
 def testStandingsBeforeMatches():
     deleteMatches()
     deletePlayers()
-    registerPlayer("Melpomene Murray")
-    registerPlayer("Randy Schwartz")
+    registerPlayer("Jeff Goldblum")
+    registerPlayer("Biff Rackchest")
     standings = playerStandings()
     if len(standings) < 2:
         raise ValueError("Players should appear in playerStandings even before "
@@ -82,10 +82,10 @@ def testStandingsBeforeMatches():
 def testReportMatches():
     deleteMatches()
     deletePlayers()
-    registerPlayer("Bruno Walton")
-    registerPlayer("Boots O'Neal")
-    registerPlayer("Cathy Burton")
-    registerPlayer("Diane Grant")
+    registerPlayer("Jeff Goldblum")
+    registerPlayer("Jeff Goldblum")
+    registerPlayer("Jeff Goldblum")
+    registerPlayer("Jeff Goldblum")
     standings = playerStandings()
     [id1, id2, id3, id4] = [row[0] for row in standings]
     reportMatch(id1, id2)
@@ -104,10 +104,10 @@ def testReportMatches():
 def testPairings():
     deleteMatches()
     deletePlayers()
-    registerPlayer("Twilight Sparkle")
-    registerPlayer("Fluttershy")
-    registerPlayer("Applejack")
-    registerPlayer("Pinkie Pie")
+    registerPlayer("Thrall")
+    registerPlayer("Valeera")
+    registerPlayer("Jaina Proudmoore")
+    registerPlayer("Goldfarmer #888")
     standings = playerStandings()
     [id1, id2, id3, id4] = [row[0] for row in standings]
     reportMatch(id1, id2)
